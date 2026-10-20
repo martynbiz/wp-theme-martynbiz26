@@ -4,45 +4,58 @@ import './style.scss';
 // visitor's mail client. Swap for a form service endpoint if you prefer.
 const CONTACT_EMAIL = 'martyn.bissett@strath.ac.uk';
 
-document.getElementById('year').textContent = new Date().getFullYear();
+// Each feature only runs if its elements are on the page, so this works on
+// both the static index.html and any WordPress template.
 
-// ---------- mobile nav ----------
+const year = document.getElementById('year');
+if (year) year.textContent = new Date().getFullYear();
+
+// ---------- mobile nav (static index.html only; WP uses the navigation block) ----------
 const nav = document.getElementById('nav');
 const toggle = document.getElementById('nav-toggle');
 
-toggle.addEventListener('click', () => {
-  const open = nav.classList.toggle('open');
-  toggle.setAttribute('aria-expanded', String(open));
-});
+if (nav && toggle) {
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
 
-nav.querySelectorAll('a').forEach((link) =>
-  link.addEventListener('click', () => {
-    nav.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
-  }),
-);
+  nav.querySelectorAll('a').forEach((link) =>
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }),
+  );
+}
 
 // ---------- highlight current section in nav ----------
-const links = [...nav.querySelectorAll('a')];
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      links.forEach((l) => l.classList.toggle('active', l.hash === `#${entry.target.id}`));
-    });
-  },
-  { rootMargin: '-45% 0px -50% 0px' },
-);
-['home', 'projects', 'gaming', 'work', 'contact'].forEach((id) => observer.observe(document.getElementById(id)));
+const navRoot = nav ?? document.querySelector('.site-nav');
+const links = navRoot ? [...navRoot.querySelectorAll('a[href*="#"]')] : [];
+const sections = ['home', 'projects', 'gaming', 'work', 'contact']
+  .map((id) => document.getElementById(id))
+  .filter(Boolean);
+
+if (links.length && sections.length) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((l) => l.classList.toggle('active', l.hash === `#${entry.target.id}`));
+      });
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+  sections.forEach((el) => observer.observe(el));
+}
 
 // ---------- typed subtitle ----------
 const phrases = ['web developer', 'PHP & JavaScript', 'Drupal / Nuxt / Python', 'docker compose up -d'];
 const typed = document.getElementById('typed');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-if (reduceMotion) {
+if (typed && reduceMotion) {
   typed.textContent = phrases[0];
-} else {
+} else if (typed) {
   let p = 0;
   let i = 0;
   let deleting = false;
@@ -70,7 +83,7 @@ if (reduceMotion) {
 const form = document.getElementById('contact-form');
 const status = document.getElementById('form-status');
 
-form.addEventListener('submit', (e) => {
+form?.addEventListener('submit', (e) => {
   e.preventDefault();
 
   let valid = true;

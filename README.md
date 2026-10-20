@@ -1,86 +1,91 @@
-# martynbiz
+# martynbiz26
 
-Personal site for Martyn Bissett: a single-page, terminal-styled portfolio built with
-Vite, Tailwind CSS and SCSS, served from nginx in Docker.
+WordPress 7 block theme for Martyn Bissett's terminal-styled site. Styles are Tailwind CSS +
+SCSS, built with Vite into `build/` and enqueued by the theme.
+
+`index.html` in the repo root is the original static design. WordPress ignores it; it's kept
+as the reference for building the front page out of blocks.
+
+## Requirements
+
+- Node 22+
+- Docker (used by [`@wordpress/env`](https://www.npmjs.com/package/@wordpress/env))
 
 ## Getting started
 
-### Option 1: Docker (production build)
-
-Requires Docker with Compose v2.
-
-```bash
-docker compose up -d --build
-```
-
-Open http://localhost:8080. This builds the site and serves the static output with nginx.
-
-Stop it with:
-
-```bash
-docker compose down
-```
-
-After changing any files, rebuild with `docker compose up -d --build`.
-
-### Option 2: Docker (development, hot reload)
-
-```bash
-docker compose --profile dev up dev
-```
-
-Open http://localhost:5173. Edits to `index.html` or anything in `src/` reload instantly.
-
-### Option 3: Local Node
-
-Requires Node 22+.
-
 ```bash
 npm install
-npm run dev       # dev server on http://localhost:5173
-npm run build     # production build into dist/
-npm run preview   # serve the dist/ build locally
+npm run build
+npm run env:start
 ```
+
+Open http://localhost:8888. The theme is mounted from this folder. On start,
+`bin/env-setup.sh` activates it, sets the site title and creates a static "Home" page as
+the front page.
+
+### Logging into wp-admin
+
+Once `npm run env:start` has finished, go to http://localhost:8888/wp-admin and log in with
+the default wp-env account:
+
+| Username | Password   |
+| -------- | ---------- |
+| `admin`  | `password` |
+
+These are local-only credentials created by wp-env. If the port is different (e.g. 8888 was
+taken), `npm run env:start` prints the actual URL. To reset a forgotten password:
+
+```bash
+npm run env:cli -- wp user update admin --user_pass=password
+```
+
+While working on styles/scripts, rebuild on change:
+
+```bash
+npm run watch
+```
+
+To view the static `index.html` reference with hot reload (http://localhost:5173):
+
+```bash
+npm run dev
+```
+
+### Other commands
+
+| Command               | What it does                                         |
+| --------------------- | ---------------------------------------------------- |
+| `npm run env:stop`    | Stop the WordPress containers                        |
+| `npm run env:destroy` | Remove the containers and database                   |
+| `npm run env:cli -- wp <cmd>` | Run WP-CLI, e.g. `npm run env:cli -- wp plugin list` |
+| `npm run zip`         | Build and package the theme as `martynbiz26.zip`     |
+
+## Front page
+
+`templates/front-page.html` renders the page content between the header and footer with no
+title or width constraint, so full-width section blocks can be placed on it. In
+**Settings → Reading**, set "Your homepage displays" to a static page and build that page
+from blocks.
 
 ## Project structure
 
 ```
-index.html            The page: header, intro, projects, work, contact
+style.css             Theme header (no styles; see src/style.scss)
+functions.php         Enqueues fonts and build/style.css + build/main.js
+theme.json            Palette (term-*), JetBrains Mono, layout widths, template parts
+templates/            index, front-page, page, single, 404
+parts/                header.html (site title + navigation), footer.html
 src/
-  main.js             Nav, typed text, section highlighting, contact form
-  style.scss          Tailwind directives + SCSS components (compiled to style.css)
-tailwind.config.js    Colours (term-*) and font settings
-vite.config.js        Build output: dist/index.html, style.css, main.js
-Dockerfile            Node build stage, then nginx serve stage
-nginx.conf            nginx site config (gzip, caching)
-docker-compose.yml    "web" (prod) and "dev" (hot reload) services
+  main.js             Typed text, section highlighting, contact form (all null-safe)
+  style.scss          Tailwind directives + SCSS components
+build/                Vite output (git-ignored, created by npm run build)
+index.html            Static design reference
+public/images/        Images used by the static reference
+.wp-env.json          Local WordPress environment
+bin/env-setup.sh      Runs after env:start: activates theme, sets title, static Home front page
 ```
 
-## Customising
+## Deploying to another WordPress site
 
-- **Content:** edit the sections in `index.html`: intro text, project cards, work entries.
-- **Photo:** the intro uses the GitHub avatar. Put your own image in `public/images/`
-  (create the folder) and change the `<img src>` to `/images/your-photo.jpg`.
-- **Colours / font:** change the `term` palette in `tailwind.config.js` and the SCSS
-  variables at the top of `src/style.scss`.
-- **Contact form:** the site is static, so the form opens the visitor's own email app
-  with the message filled in. Set the recipient address in `CONTACT_EMAIL` at the top
-  of `src/main.js`. To send messages without that, point the form at a form service
-  (e.g. Formspree) or add a small backend.
-
-## Changing the port
-
-Ports are read from `.env` (Docker Compose loads it automatically). Copy the example
-and edit it:
-
-```bash
-cp .env.example .env
-```
-
-| Variable   | Default | Used by                      |
-| ---------- | ------- | ---------------------------- |
-| `PORT`     | `8080`  | `web` (nginx production site) |
-| `DEV_PORT` | `5173`  | `dev` (Vite dev server)       |
-
-If `.env` is missing, the defaults above are used. Restart with
-`docker compose up -d` after changing them.
+Run `npm run zip` and upload `martynbiz26.zip` under **Appearance → Themes → Add New →
+Upload Theme**.

@@ -1,14 +1,20 @@
 {
-  "name": "martynbiz",
+  "name": "martynbiz26",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "watch": "vite build --watch",
+    "env:start": "wp-env start",
+    "env:stop": "wp-env stop",
+    "env:destroy": "wp-env destroy",
+    "env:cli": "wp-env run cli",
+    "zip": "npm run build && rm -rf .zip-tmp martynbiz26.zip && mkdir -p .zip-tmp/martynbiz26 && cp -r style.css functions.php theme.json templates parts build .zip-tmp/martynbiz26/ && cd .zip-tmp && zip -rq ../martynbiz26.zip martynbiz26 && cd .. && rm -rf .zip-tmp"
   },
   "devDependencies": {
+    "@wordpress/env": "12.0.0",
     "autoprefixer": "10.4.20",
     "postcss": "8.4.49",
     "sass": "1.83.0",

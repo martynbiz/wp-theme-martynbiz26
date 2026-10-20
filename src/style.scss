@@ -62,8 +62,15 @@ $dim: #6b7d8f;
   // ---------- header / nav ----------
   .site-header {
     @apply sticky top-0 z-50 border-b border-term-line;
-    background: rgba($bg, 0.85);
-    backdrop-filter: blur(8px);
+
+    // Blur on a pseudo-element: backdrop-filter on the header itself would
+    // trap the WP navigation's fixed-position mobile overlay inside it.
+    &::before {
+      content: '';
+      @apply absolute inset-0 -z-10;
+      background: rgba($bg, 0.85);
+      backdrop-filter: blur(8px);
+    }
   }
 
   .nav {
@@ -230,6 +237,82 @@ $dim: #6b7d8f;
       }
     }
   }
+}
+
+// ---------- WordPress blocks ----------
+// Outside @layer so Tailwind doesn't purge classes WordPress adds at render time.
+.site-header__inner > .alignwide {
+  @apply h-16 items-center;
+}
+
+.site-logo {
+  @apply m-0 text-lg font-bold tracking-tight whitespace-nowrap;
+
+  a {
+    @apply text-term-text no-underline;
+  }
+
+  a::before {
+    content: '~/';
+    @apply text-term-green;
+  }
+
+  a::after {
+    content: '_';
+    @apply text-term-green;
+    animation: blink 1s steps(1) infinite;
+  }
+}
+
+.site-nav {
+  @apply text-sm;
+  gap: 2rem;
+
+  // "Home" -> "01.home", numbered in menu order
+  .wp-block-navigation__container {
+    counter-reset: nav;
+  }
+
+  .wp-block-navigation-item {
+    counter-increment: nav;
+  }
+
+  .wp-block-navigation-item__content {
+    @apply text-term-text no-underline transition-colors hover:text-term-green;
+    text-transform: lowercase;
+
+    &::before {
+      content: counter(nav, decimal-leading-zero) '.';
+      @apply text-term-green mr-1;
+    }
+
+    &.active {
+      @apply text-term-green;
+    }
+  }
+
+  .wp-block-navigation__submenu-container {
+    .wp-block-navigation-item {
+      counter-increment: none;
+    }
+
+    .wp-block-navigation-item__content::before {
+      content: none;
+    }
+  }
+
+  .wp-block-navigation__responsive-container-open,
+  .wp-block-navigation__responsive-container-close {
+    @apply text-term-green;
+  }
+}
+
+.wp-block-post-title {
+  @apply text-3xl sm:text-4xl leading-tight;
+}
+
+.site-footer {
+  @apply border-t border-term-line py-8 text-sm text-term-dim;
 }
 
 @keyframes blink {

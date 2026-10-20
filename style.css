@@ -1,0 +1,16 @@
+/*
+Theme Name: Martynbiz 26
+Theme URI: https://github.com/martynbiz
+Author: Martyn Bissett
+Author URI: https://github.com/martynbiz
+Description: Terminal-styled block theme for martynbiz. Styles and scripts are built with Vite into build/.
+Requires at least: 7.0
+Tested up to: 7.0
+Requires PHP: 8.1
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: martynbiz26
+*/
+
+/* Theme styles live in src/style.scss and are compiled to build/style.css. */

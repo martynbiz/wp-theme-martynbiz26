@@ -1,0 +1,77 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"useRootPaddingAwareAlignments": true,
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"custom": false,
+			"customGradient": false,
+			"palette": [
+				{ "slug": "term-bg", "name": "Background", "color": "#0b0f14" },
+				{ "slug": "term-panel", "name": "Panel", "color": "#111821" },
+				{ "slug": "term-line", "name": "Line", "color": "#1f2a36" },
+				{ "slug": "term-text", "name": "Text", "color": "#c9d4df" },
+				{ "slug": "term-dim", "name": "Dim", "color": "#6b7d8f" },
+				{ "slug": "term-green", "name": "Green", "color": "#3ddc84" },
+				{ "slug": "term-cyan", "name": "Cyan", "color": "#4fc3f7" },
+				{ "slug": "term-amber", "name": "Amber", "color": "#ffb454" },
+				{ "slug": "term-pink", "name": "Pink", "color": "#ff6ac1" },
+				{ "slug": "white", "name": "White", "color": "#ffffff" }
+			]
+		},
+		"typography": {
+			"fontFamilies": [
+				{
+					"slug": "mono",
+					"name": "JetBrains Mono",
+					"fontFamily": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, Menlo, monospace"
+				}
+			]
+		},
+		"layout": {
+			"contentSize": "42rem",
+			"wideSize": "72rem"
+		},
+		"spacing": {
+			"units": [ "px", "rem", "%", "vh", "vw" ]
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--term-bg)",
+			"text": "var(--wp--preset--color--term-text)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--mono)",
+			"lineHeight": "1.6"
+		},
+		"spacing": {
+			"blockGap": "1.5rem",
+			"padding": {
+				"left": "1rem",
+				"right": "1rem"
+			}
+		},
+		"elements": {
+			"link": {
+				"color": { "text": "var(--wp--preset--color--term-green)" },
+				":hover": {
+					"color": { "text": "var(--wp--preset--color--white)" }
+				}
+			},
+			"heading": {
+				"color": { "text": "var(--wp--preset--color--white)" },
+				"typography": { "fontWeight": "700" }
+			}
+		}
+	},
+	"templateParts": [
+		{ "name": "header", "title": "Header", "area": "header" },
+		{ "name": "footer", "title": "Footer", "area": "footer" }
+	],
+	"customTemplates": []
+}
