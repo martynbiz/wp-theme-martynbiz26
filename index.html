@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Martyn Bissett — Developer</title>
+    <meta name="description" content="Martyn Bissett — web developer, PHP / JavaScript / Python, Glasgow." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body class="bg-term-bg text-term-text font-mono antialiased">
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+      <div class="container-x flex items-center justify-between h-16">
+        <a href="#home" class="text-lg font-bold tracking-tight">
+          <span class="text-term-green">~/</span>martyn-bissett<span class="cursor">_</span>
+        </a>
+
+        <button id="nav-toggle" class="md:hidden nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav id="nav" class="nav">
+          <a href="#home" class="nav-link"><span>01.</span>home</a>
+          <a href="#about" class="nav-link"><span>02.</span>about_me</a>
+          <a href="#projects" class="nav-link"><span>03.</span>projects</a>
+          <a href="#work" class="nav-link"><span>04.</span>work</a>
+          <a href="#contact" class="nav-link"><span>05.</span>contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- ============ HOME / INTRO ============ -->
+      <section id="home" class="section min-h-[calc(100vh-4rem)] flex items-center">
+        <div class="container-x grid md:grid-cols-[1.4fr_1fr] gap-12 items-center">
+          <div>
+            <p class="text-term-green mb-4">$ whoami</p>
+            <h1 class="text-4xl sm:text-6xl font-bold text-white leading-tight">
+              Martyn Bissett<span class="text-term-green">.</span>
+            </h1>
+            <h2 class="mt-3 text-xl sm:text-2xl text-term-dim">
+              <span id="typed" class="text-term-cyan"></span><span class="cursor">|</span>
+            </h2>
+
+            <div id="about" class="mt-8 space-y-4 max-w-xl leading-relaxed scroll-mt-24">
+              <p class="comment">// about_me</p>
+              <p>
+                Hi, I'm Martyn — a developer based in Scotland who has spent a good chunk of
+                the last couple of decades building things for the web. I started out in PHP,
+                fell for frameworks like Slim, and these days I'm just as happy in JavaScript,
+                Vue/Nuxt, Drupal or Python.
+              </p>
+              <p>
+                I like tidy code, sensible infrastructure (everything in a container, please),
+                and lately I've been spending my spare time on security tooling and
+                AI-assisted pentesting experiments.
+              </p>
+              <p>
+                When I'm not at a keyboard, I'm probably tinkering with a side project I'll
+                definitely finish one day.
+              </p>
+            </div>
+
+            <div class="mt-10 flex flex-wrap gap-4">
+              <a href="#projects" class="btn btn-primary">./view-projects</a>
+              <a href="#contact" class="btn btn-ghost">./say-hello</a>
+            </div>
+          </div>
+
+          <div class="relative mx-auto w-64 sm:w-80">
+            <div class="terminal-window">
+              <div class="terminal-bar">
+                <i class="bg-[#ff5f56]"></i><i class="bg-[#ffbd2e]"></i><i class="bg-[#27c93f]"></i>
+                <span>martyn.jpg</span>
+              </div>
+              <!-- Replace with your own photo: drop it in /public/images/ and update src -->
+              <img
+                src="https://github.com/martynbiz.png?size=480"
+                alt="Photo of Martyn Bissett"
+                class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition duration-500"
+              />
+            </div>
+            <div class="photo-offset"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PROJECTS ============ -->
+      <section id="projects" class="section">
+        <div class="container-x">
+          <h2 class="section-title"><span>03.</span>projects</h2>
+          <p class="text-term-dim max-w-2xl mb-10">
+            A few things from my GitHub — some old favourites that people still use, and some
+            newer experiments.
+          </p>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a class="project-card" href="https://github.com/martynbiz/slim3-controller" target="_blank" rel="noopener">
+              <div class="project-head">
+                <span class="folder">&#128193;</span>
+                <span class="stars">&#9733; 25</span>
+              </div>
+              <h3>slim3-controller</h3>
+              <p>Controller functionality for Slim Framework v3, plus a PHPUnit TestCase for testing your controllers properly.</p>
+              <ul class="tags"><li>PHP</li><li>Slim</li><li>PHPUnit</li></ul>
+            </a>
+
+            <a class="project-card" href="https://github.com/martynbiz/slim3-module" target="_blank" rel="noopener">
+              <div class="project-head">
+                <span class="folder">&#128193;</span>
+                <span class="stars">&#9733; 6</span>
+              </div>
+              <h3>slim3-module</h3>
+              <p>A simple module loader for Slim 3 projects, with a companion skeleton app to get started quickly.</p>
+              <ul class="tags"><li>PHP</li><li>Slim</li><li>Composer</li></ul>
+            </a>
+
+            <a class="project-card" href="https://github.com/martynbiz/diff" target="_blank" rel="noopener">
+              <div class="project-head">
+                <span class="folder">&#128193;</span>
+                <span class="stars">&#9733; 4</span>
+              </div>
+              <h3>diff</h3>
+              <p>Generates difference views between two or three text files — handy for content revisions and audits.</p>
+              <ul class="tags"><li>PHP</li><li>Library</li></ul>
+            </a>
+
+            <a class="project-card" href="https://github.com/martynbiz/sso" target="_blank" rel="noopener">
+              <div class="project-head">
+                <span class="folder">&#128193;</span>
+              </div>
+              <h3>sso</h3>
+              <p>A single sign-on system using OAuth 2 for cross-domain authentication between sites.</p>
+              <ul class="tags"><li>OAuth 2</li><li>Auth</li></ul>
+            </a>
+
+            <a class="project-card" href="https://github.com/martynbiz/pentest-langgraph" target="_blank" rel="noopener">
+              <div class="project-head">
+                <span class="folder">&#128193;</span>
+                <span class="badge">new</span>
+              </div>
+              <h3>pentest-langgraph</h3>
+              <p>Experimenting with LangGraph agents to orchestrate penetration-testing workflows.</p>
+              <ul class="tags"><li>Python</li><li>LangGraph</li><li>Security</li></ul>
+            </a>
+
+            <a class="project-card" href="https://github.com/martynbiz/tiny-football-network" target="_blank" rel="noopener">
+              <div class="project-head">
+                <span class="folder">&#128193;</span>
+                <span class="badge">fun</span>
+              </div>
+              <h3>tiny-football-network</h3>
+              <p>A small football game built in Godot — the side project that's mostly for me.</p>
+              <ul class="tags"><li>GDScript</li><li>Godot</li></ul>
+            </a>
+          </div>
+
+          <div class="text-center mt-12">
+            <a href="https://github.com/martynbiz" target="_blank" rel="noopener" class="btn btn-ghost">
+              git remote -v &rarr; github.com/martynbiz
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ WORK ============ -->
+      <section id="work" class="section">
+        <div class="container-x">
+          <h2 class="section-title"><span>04.</span>work</h2>
+          <p class="text-term-dim max-w-2xl mb-10">
+            Not a CV — just a bit about some of the places I've had the pleasure of working
+            with, and what I got up to there.
+          </p>
+
+          <div class="space-y-6 max-w-3xl">
+            <!-- Edit / add companies below -->
+            <article class="work-item">
+              <h3><span class="text-term-amber">University of Strathclyde</span></h3>
+              <p>
+                These days I'm at Strathclyde, working on web platforms that support research
+                and teaching. A lot of Drupal, a lot of Docker, and a healthy interest in
+                keeping things secure.
+              </p>
+            </article>
+
+            <article class="work-item">
+              <h3><span class="text-term-amber">NMIS</span> — National Manufacturing Institute Scotland</h3>
+              <p>
+                I built and look after the NMIS website theme in Drupal/Twig — making a
+                complex organisation's work easy to find and pleasant to browse.
+              </p>
+            </article>
+
+            <article class="work-item">
+              <h3><span class="text-term-amber">Agencies &amp; freelance</span></h3>
+              <p>
+                Before that, years of agency and freelance work: PHP applications, WordPress
+                and Drupal sites, APIs and the occasional "can you just quickly…" rescue job.
+                It's where I learned to ship.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACT ============ -->
+      <section id="contact" class="section">
+        <div class="container-x max-w-2xl">
+          <h2 class="section-title"><span>05.</span>contact</h2>
+          <p class="text-term-dim mb-8">
+            Got a project, a question, or just want to talk code? Drop me a message.
+          </p>
+
+          <form id="contact-form" class="terminal-window p-6 sm:p-8 space-y-5" novalidate>
+            <p class="text-term-green">$ ./send-message.sh</p>
+            <label class="field">
+              <span>--name</span>
+              <input type="text" name="name" required autocomplete="name" placeholder="Ada Lovelace" />
+            </label>
+            <label class="field">
+              <span>--email</span>
+              <input type="email" name="email" required autocomplete="email" placeholder="ada@example.com" />
+            </label>
+            <label class="field">
+              <span>--message</span>
+              <textarea name="message" rows="5" required placeholder="Hello Martyn..."></textarea>
+            </label>
+            <div class="flex items-center gap-4 flex-wrap">
+              <button type="submit" class="btn btn-primary">[ enter ] send</button>
+              <p id="form-status" class="text-sm" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-term-line py-8 text-center text-sm text-term-dim">
+      <p>
+        <span class="text-term-green">&copy;</span> <span id="year"></span> Martyn Bissett
+        &middot; built with Vite, Tailwind &amp; SCSS &middot; served from a container
+      </p>
+    </footer>
+  </body>
+</html>

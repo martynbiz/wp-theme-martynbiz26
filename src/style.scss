@@ -1,0 +1,245 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$green: #3ddc84;
+$cyan: #4fc3f7;
+$line: #1f2a36;
+$panel: #111821;
+$bg: #0b0f14;
+$dim: #6b7d8f;
+
+@mixin numbered-label {
+  @apply text-term-green font-normal mr-2;
+}
+
+@layer base {
+  ::selection {
+    background: rgba($green, 0.3);
+    color: #fff;
+  }
+
+  body {
+    // faint grid behind everything
+    background-image:
+      linear-gradient(rgba($line, 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, rgba($line, 0.35) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply max-w-6xl mx-auto px-4 sm:px-8;
+  }
+
+  .section {
+    @apply py-24 scroll-mt-16;
+  }
+
+  .section-title {
+    @apply flex items-center text-2xl sm:text-3xl font-bold text-white mb-6;
+
+    span {
+      @include numbered-label;
+    }
+
+    &::after {
+      content: '';
+      @apply ml-6 h-px flex-1 max-w-xs bg-term-line;
+    }
+  }
+
+  .comment {
+    @apply text-term-dim italic;
+  }
+
+  .cursor {
+    @apply text-term-green;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  // ---------- header / nav ----------
+  .site-header {
+    @apply sticky top-0 z-50 border-b border-term-line;
+    background: rgba($bg, 0.85);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav {
+    @apply hidden md:flex items-center gap-8;
+
+    &.open {
+      @apply flex flex-col absolute top-16 inset-x-0 gap-6 py-8 border-b border-term-line;
+      background: $bg;
+    }
+  }
+
+  .nav-link {
+    @apply text-sm text-term-text transition-colors hover:text-term-green;
+
+    span {
+      @apply text-term-green mr-1;
+    }
+
+    &.active {
+      @apply text-term-green;
+    }
+  }
+
+  .nav-toggle {
+    @apply flex flex-col gap-1.5 p-2;
+
+    span {
+      @apply block w-6 h-0.5 bg-term-green transition-transform;
+    }
+  }
+
+  // ---------- buttons ----------
+  .btn {
+    @apply inline-block px-5 py-3 text-sm border transition-all duration-200;
+
+    &-primary {
+      @apply border-term-green text-term-bg bg-term-green;
+
+      &:hover {
+        @apply bg-transparent text-term-green;
+        box-shadow: 0 0 20px rgba($green, 0.25);
+      }
+    }
+
+    &-ghost {
+      @apply border-term-line text-term-text;
+
+      &:hover {
+        @apply border-term-green text-term-green;
+      }
+    }
+  }
+
+  // ---------- terminal window ----------
+  .terminal-window {
+    @apply relative z-10 border border-term-line overflow-hidden;
+    background: $panel;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  .terminal-bar {
+    @apply flex items-center gap-2 px-3 py-2 border-b border-term-line text-xs text-term-dim;
+
+    i {
+      @apply block w-3 h-3 rounded-full;
+    }
+
+    span {
+      @apply ml-2;
+    }
+  }
+
+  .photo-offset {
+    @apply absolute inset-0 translate-x-4 translate-y-4 border-2 border-term-green -z-0;
+  }
+
+  // ---------- projects ----------
+  .project-card {
+    @apply flex flex-col p-6 border border-term-line transition-all duration-200;
+    background: $panel;
+
+    &:hover {
+      @apply -translate-y-1 border-term-green;
+      box-shadow: 0 10px 30px rgba($green, 0.08);
+
+      h3 {
+        @apply text-term-green;
+      }
+    }
+
+    h3 {
+      @apply text-lg font-bold text-white mb-2 transition-colors;
+    }
+
+    p {
+      @apply text-sm text-term-dim leading-relaxed flex-1;
+    }
+  }
+
+  .project-head {
+    @apply flex items-center justify-between mb-4;
+
+    .folder {
+      @apply text-2xl;
+    }
+
+    .stars {
+      @apply text-sm text-term-amber;
+    }
+
+    .badge {
+      @apply text-xs px-2 py-0.5 border border-term-pink text-term-pink;
+    }
+  }
+
+  .tags {
+    @apply flex flex-wrap gap-3 mt-5 text-xs text-term-cyan;
+
+    li::before {
+      content: '#';
+      @apply text-term-dim;
+    }
+  }
+
+  // ---------- work ----------
+  .work-item {
+    @apply relative pl-8 border-l border-term-line;
+
+    &::before {
+      content: '>';
+      @apply absolute -left-[0.4rem] top-0 text-term-green leading-none px-0.5;
+      background: $bg;
+    }
+
+    h3 {
+      @apply text-lg font-bold text-white mb-2;
+    }
+
+    p {
+      @apply text-term-text leading-relaxed;
+    }
+  }
+
+  // ---------- form ----------
+  .field {
+    @apply block;
+
+    span {
+      @apply block text-sm text-term-cyan mb-2;
+    }
+
+    input,
+    textarea {
+      @apply w-full px-4 py-3 bg-term-bg border border-term-line text-term-text
+        placeholder:text-term-dim/60 outline-none transition-colors;
+
+      &:focus {
+        @apply border-term-green;
+        box-shadow: 0 0 0 1px $green;
+      }
+
+      &.invalid {
+        @apply border-term-pink;
+      }
+    }
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+}
