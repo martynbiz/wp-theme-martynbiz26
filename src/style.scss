@@ -67,7 +67,7 @@ $dim: #6b7d8f;
   }
 
   .nav {
-    @apply hidden md:flex items-center gap-8;
+    @apply hidden lg:flex items-center gap-8;
 
     &.open {
       @apply flex flex-col absolute top-16 inset-x-0 gap-6 py-8 border-b border-term-line;

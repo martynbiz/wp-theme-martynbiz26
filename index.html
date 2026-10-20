@@ -17,11 +17,11 @@
     <!-- ============ HEADER ============ -->
     <header class="site-header">
       <div class="container-x flex items-center justify-between h-16">
-        <a href="#home" class="text-lg font-bold tracking-tight">
+        <a href="#home" class="text-lg font-bold tracking-tight whitespace-nowrap">
           <span class="text-term-green">~/</span>martyn-bissett<span class="cursor">_</span>
         </a>
 
-        <button id="nav-toggle" class="md:hidden nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <button id="nav-toggle" class="lg:hidden nav-toggle" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
 
@@ -29,8 +29,9 @@
           <a href="#home" class="nav-link"><span>01.</span>home</a>
           <a href="#about" class="nav-link"><span>02.</span>about_me</a>
           <a href="#projects" class="nav-link"><span>03.</span>projects</a>
-          <a href="#work" class="nav-link"><span>04.</span>work</a>
-          <a href="#contact" class="nav-link"><span>05.</span>contact</a>
+          <a href="#gaming" class="nav-link"><span>04.</span>gaming</a>
+          <a href="#work" class="nav-link"><span>05.</span>work</a>
+          <a href="#contact" class="nav-link"><span>06.</span>contact</a>
         </nav>
       </div>
     </header>
@@ -52,14 +53,14 @@
               <p class="comment">// about_me</p>
               <p>
                 Hi, I'm Martyn — a developer based in Scotland who has spent a good chunk of
-                the last couple of decades building things for the web. I started out in PHP,
-                fell for frameworks like Slim, and these days I'm just as happy in JavaScript,
-                Vue/Nuxt, Drupal or Python.
+                the last couple of decades building things for the web. I started out in PHP (Laravel/Slim),
+                but have experience working in other languages/frameworks such as JavaScript (Vue/Nuxt/Next.js), 
+                Java (Spring Boot) and Python.
               </p>
               <p>
-                I like tidy code, sensible infrastructure (everything in a container, please),
+                I like tidy code, sensible infrastructure (containers, please),
                 and lately I've been spending my spare time on security tooling and
-                AI-assisted pentesting experiments.
+                AI experiments.
               </p>
               <p>
                 When I'm not at a keyboard, I'm probably tinkering with a side project I'll
@@ -150,14 +151,13 @@
               <ul class="tags"><li>Python</li><li>LangGraph</li><li>Security</li></ul>
             </a>
 
-            <a class="project-card" href="https://github.com/martynbiz/tiny-football-network" target="_blank" rel="noopener">
+            <a class="project-card" href="https://github.com/martynbiz/phpdebugbar" target="_blank" rel="noopener">
               <div class="project-head">
                 <span class="folder">&#128193;</span>
-                <span class="badge">fun</span>
               </div>
-              <h3>tiny-football-network</h3>
-              <p>A small football game built in Godot — the side project that's mostly for me.</p>
-              <ul class="tags"><li>GDScript</li><li>Godot</li></ul>
+              <h3>phpdebugbar</h3>
+              <p>A configurable wrapper for PHP DebugBar — easy to switch off in production, set up on instantiation.</p>
+              <ul class="tags"><li>PHP</li><li>Debugging</li></ul>
             </a>
           </div>
 
@@ -169,10 +169,61 @@
         </div>
       </section>
 
+      <!-- ============ GAMING ============ -->
+      <section id="gaming" class="section">
+        <div class="container-x">
+          <h2 class="section-title"><span>04.</span>gaming</h2>
+
+          <div class="grid md:grid-cols-[1fr_1.1fr] gap-12 items-center">
+            <div class="space-y-4 leading-relaxed max-w-xl">
+              <p class="comment">// insert coin to continue</p>
+              <p>
+                I'm a gamer from the 90s — I grew up on chunky pixels, chiptune soundtracks and
+                games you could pick up in seconds and still be playing at 2am. That era still
+                shapes what I love about games: tight controls, simple ideas and a lot of charm.
+              </p>
+              <p>
+                These days I don't just play them, I make them. I'm the developer of
+                <span class="text-term-amber font-bold">Tiny Football</span>, a retro-style
+                football game built with the <span class="text-term-cyan">Godot</span> engine —
+                fast, top-down, and very much inspired by the games I played as a kid.
+              </p>
+              <p>
+                Retro-style games are my favourite thing to build: pixel art, small worlds and
+                gameplay that's easy to pick up and hard to put down.
+              </p>
+              <div class="pt-4 flex flex-wrap gap-4">
+                <a href="https://store.steampowered.com/app/1887010/Tiny_Football/" target="_blank" rel="noopener" class="btn btn-primary">
+                  ./play tiny-football
+                </a>
+              </div>
+            </div>
+
+            <div class="relative mx-auto w-64 sm:w-72">
+              <div class="terminal-window">
+                <div class="terminal-bar">
+                  <i class="bg-[#ff5f56]"></i><i class="bg-[#ffbd2e]"></i><i class="bg-[#27c93f]"></i>
+                  <span>tinyfootball.jpg</span>
+                </div>
+                <img
+                  src="/images/tinyfootball.jpg"
+                  alt="Tiny Football cover art: pixel-art players on a football pitch"
+                  width="300"
+                  height="450"
+                  loading="lazy"
+                  class="block w-full h-auto"
+                />
+              </div>
+              <div class="photo-offset"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ============ WORK ============ -->
       <section id="work" class="section">
         <div class="container-x">
-          <h2 class="section-title"><span>04.</span>work</h2>
+          <h2 class="section-title"><span>05.</span>work</h2>
           <p class="text-term-dim max-w-2xl mb-10">
             Not a CV — just a bit about some of the places I've had the pleasure of working
             with, and what I got up to there.
@@ -212,7 +263,7 @@
       <!-- ============ CONTACT ============ -->
       <section id="contact" class="section">
         <div class="container-x max-w-2xl">
-          <h2 class="section-title"><span>05.</span>contact</h2>
+          <h2 class="section-title"><span>06.</span>contact</h2>
           <p class="text-term-dim mb-8">
             Got a project, a question, or just want to talk code? Drop me a message.
           </p>

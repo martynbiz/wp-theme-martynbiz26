@@ -33,7 +33,7 @@ const observer = new IntersectionObserver(
   },
   { rootMargin: '-45% 0px -50% 0px' },
 );
-['home', 'projects', 'work', 'contact'].forEach((id) => observer.observe(document.getElementById(id)));
+['home', 'projects', 'gaming', 'work', 'contact'].forEach((id) => observer.observe(document.getElementById(id)));
 
 // ---------- typed subtitle ----------
 const phrases = ['web developer', 'PHP & JavaScript', 'Drupal / Nuxt / Python', 'docker compose up -d'];
