@@ -70,4 +70,17 @@ docker-compose.yml    "web" (prod) and "dev" (hot reload) services
 
 ## Changing the port
 
-Edit the `ports` mapping for `web` in `docker-compose.yml`, e.g. `"80:80"` to serve on port 80.
+Ports are read from `.env` (Docker Compose loads it automatically). Copy the example
+and edit it:
+
+```bash
+cp .env.example .env
+```
+
+| Variable   | Default | Used by                      |
+| ---------- | ------- | ---------------------------- |
+| `PORT`     | `8080`  | `web` (nginx production site) |
+| `DEV_PORT` | `5173`  | `dev` (Vite dev server)       |
+
+If `.env` is missing, the defaults above are used. Restart with
+`docker compose up -d` after changing them.
