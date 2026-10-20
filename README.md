@@ -67,6 +67,21 @@ title or width constraint, so full-width section blocks can be placed on it. In
 **Settings → Reading**, set "Your homepage displays" to a static page and build that page
 from blocks.
 
+## Blocks
+
+The theme's own blocks live in `src/blocks/<name>/` and appear in the inserter under
+**Theme**. Each is a dynamic block: `block.json` defines the fields, `edit.js` is the
+editor UI, and `render.php` outputs the front-end markup using the same Tailwind classes as
+`index.html`. `npm run build` compiles them into `build/blocks/`, and `functions.php`
+registers every block found there.
+
+| Block                | From `index.html`                     | Fields                                                    |
+| -------------------- | ------------------------------------- | --------------------------------------------------------- |
+| `martynbiz26/whoami` | `$ whoami` / name / typed ticker      | `prompt`, `name` (blank = site name), `phrases` (list); padding + margin (Styles tab) |
+
+Ticker phrases are edited in the block sidebar (add, remove, reorder). `src/main.js`
+animates any element with a `data-typed` JSON list.
+
 ## Project structure
 
 ```
@@ -78,7 +93,8 @@ parts/                header.html (site title + navigation), footer.html
 src/
   main.js             Typed text, section highlighting, contact form (all null-safe)
   style.scss          Tailwind directives + SCSS components
-build/                Vite output (git-ignored, created by npm run build)
+  blocks/             Theme blocks (one folder each, built by @wordpress/scripts)
+build/                Build output (git-ignored): Vite assets + build/blocks/
 index.html            Static design reference
 public/images/        Images used by the static reference
 .wp-env.json          Local WordPress environment

@@ -5,7 +5,8 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   build: {
     outDir: 'build',
-    emptyOutDir: true,
+    // build/blocks is written by wp-scripts, so don't wipe build/.
+    emptyOutDir: false,
     copyPublicDir: false,
     rollupOptions: {
       input: 'src/main.js',

@@ -2,7 +2,7 @@
 export default {
   content: [
     './index.html',
-    './src/**/*.js',
+    './src/**/*.{js,php}',
     './templates/**/*.html',
     './parts/**/*.html',
     './patterns/**/*.php',

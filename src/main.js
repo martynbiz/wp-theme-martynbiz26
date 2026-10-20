@@ -49,13 +49,17 @@ if (links.length && sections.length) {
 }
 
 // ---------- typed subtitle ----------
-const phrases = ['web developer', 'PHP & JavaScript', 'Drupal / Nuxt / Python', 'docker compose up -d'];
-const typed = document.getElementById('typed');
+// The whoami block passes its phrases as JSON in data-typed; the static
+// index.html uses #typed with the defaults below.
+const defaultPhrases = ['web developer', 'PHP & JavaScript', 'Drupal / Nuxt / Python', 'docker compose up -d'];
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-if (typed && reduceMotion) {
-  typed.textContent = phrases[0];
-} else if (typed) {
+const startTicker = (typed, phrases) => {
+  if (reduceMotion) {
+    typed.textContent = phrases[0];
+    return;
+  }
+
   let p = 0;
   let i = 0;
   let deleting = false;
@@ -77,7 +81,17 @@ if (typed && reduceMotion) {
     setTimeout(tick, delay);
   };
   tick();
-}
+};
+
+document.querySelectorAll('[data-typed], #typed').forEach((typed) => {
+  let phrases = defaultPhrases;
+  try {
+    if (typed.dataset.typed) phrases = JSON.parse(typed.dataset.typed);
+  } catch {
+    // keep defaults
+  }
+  if (phrases.length) startTicker(typed, phrases);
+});
 
 // ---------- contact form ----------
 const form = document.getElementById('contact-form');

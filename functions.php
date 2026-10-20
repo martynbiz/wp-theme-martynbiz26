@@ -40,6 +40,16 @@ function martynbiz26_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'martynbiz26_enqueue_assets' );
 
 /**
+ * Register the theme's blocks, built from src/blocks into build/blocks (npm run build).
+ */
+function martynbiz26_register_blocks() {
+	foreach ( glob( get_theme_file_path( 'build/blocks/*/block.json' ) ) as $block_json ) {
+		register_block_type( dirname( $block_json ) );
+	}
+}
+add_action( 'init', 'martynbiz26_register_blocks' );
+
+/**
  * Show the header site title as a slug, e.g. "Martyn Bissett" -> "martyn-bissett".
  * The "~/" prefix and "_" cursor are added in CSS (.site-logo).
  */

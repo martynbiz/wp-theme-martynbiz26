@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
-    "watch": "vite build --watch",
+    "build": "vite build && npm run build:blocks",
+    "build:blocks": "wp-scripts build --webpack-src-dir=src/blocks --output-path=build/blocks --webpack-copy-php",
+    "watch": "concurrently -k -n theme,blocks \"vite build --watch\" \"npm run watch:blocks\"",
+    "watch:blocks": "wp-scripts start --webpack-src-dir=src/blocks --output-path=build/blocks --webpack-copy-php",
     "env:start": "wp-env start",
     "env:stop": "wp-env stop",
     "env:destroy": "wp-env destroy",
@@ -15,10 +17,12 @@
   },
   "devDependencies": {
     "@wordpress/env": "12.0.0",
+    "@wordpress/scripts": "37.0.0",
     "autoprefixer": "10.4.20",
+    "concurrently": "10.0.6",
     "postcss": "8.4.49",
     "sass": "1.83.0",
     "tailwindcss": "3.4.17",
-    "vite": "6.0.7"
+    "vite": "7.3.7"
   }
 }

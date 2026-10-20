@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "martynbiz26/whoami",
+	"version": "1.0.0",
+	"title": "Whoami",
+	"category": "theme",
+	"icon": "editor-code",
+	"description": "Terminal-style intro: a prompt line, your name, and a typed ticker of phrases.",
+	"keywords": [ "intro", "hero", "terminal", "typed" ],
+	"textdomain": "martynbiz26",
+	"attributes": {
+		"prompt": {
+			"type": "string",
+			"default": "$ whoami"
+		},
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"phrases": {
+			"type": "array",
+			"items": { "type": "string" },
+			"default": [
+				"web developer",
+				"PHP & JavaScript",
+				"Drupal / Nuxt / Python",
+				"docker compose up -d"
+			]
+		}
+	},
+	"supports": {
+		"html": false,
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"__experimentalDefaultControls": {
+				"padding": true
+			}
+		}
+	},
+	"example": {},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}
