@@ -12,8 +12,10 @@ import { SIZE_CLASSES, filename, imageClasses } from './classes.js';
 
 export default function Edit({ attributes, setAttributes }) {
   const { id, url, alt, label, size, square, grayscale, offset } = attributes;
+  // Call useBlockProps once on every render (hooks can't be conditional); only
+  // the class changes between the placeholder and the framed image.
   const blockProps = useBlockProps({
-    className: `terminal-image relative mx-auto ${SIZE_CLASSES[size] ?? SIZE_CLASSES.medium}`,
+    className: url ? `terminal-image relative mx-auto ${SIZE_CLASSES[size] ?? SIZE_CLASSES.medium}` : undefined,
   });
 
   const onSelect = (media) =>
@@ -22,7 +24,7 @@ export default function Edit({ attributes, setAttributes }) {
 
   if (!url) {
     return (
-      <div {...useBlockProps()}>
+      <div {...blockProps}>
         <MediaPlaceholder
           icon="format-image"
           labels={{ title: __('Terminal image', 'martynbiz26') }}

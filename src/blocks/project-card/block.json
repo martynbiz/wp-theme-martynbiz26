@@ -1,0 +1,58 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "martynbiz26/project-card",
+	"version": "1.0.0",
+	"title": "Project card",
+	"category": "theme",
+	"icon": "portfolio",
+	"description": "A linked project box: folder icon, stars or badge, title, description and tags. Put several in a Grid or Columns block.",
+	"keywords": [ "project", "card", "github", "repo", "portfolio" ],
+	"textdomain": "martynbiz26",
+	"attributes": {
+		"url": {
+			"type": "string",
+			"default": ""
+		},
+		"newTab": {
+			"type": "boolean",
+			"default": true
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"description": {
+			"type": "string",
+			"default": ""
+		},
+		"stars": {
+			"type": "number"
+		},
+		"badge": {
+			"type": "string",
+			"default": ""
+		},
+		"tags": {
+			"type": "array",
+			"items": { "type": "string" },
+			"default": []
+		}
+	},
+	"supports": {
+		"html": false,
+		"spacing": {
+			"margin": true
+		}
+	},
+	"example": {
+		"attributes": {
+			"title": "slim3-controller",
+			"description": "Controller functionality for Slim Framework v3, plus a PHPUnit TestCase for testing your controllers properly.",
+			"stars": 25,
+			"tags": [ "PHP", "Slim", "PHPUnit" ]
+		}
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}

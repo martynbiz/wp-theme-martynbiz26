@@ -9,6 +9,16 @@ $panel: #111821;
 $bg: #0b0f14;
 $dim: #6b7d8f;
 
+// "03. projects ———" heading with a short rule after it.
+@mixin section-title {
+  @apply flex items-center text-2xl sm:text-3xl font-bold text-white mb-6;
+
+  &::after {
+    content: '';
+    @apply ml-6 h-px flex-1 max-w-xs bg-term-line;
+  }
+}
+
 @mixin numbered-label {
   @apply text-term-green font-normal mr-2;
 }
@@ -38,15 +48,10 @@ $dim: #6b7d8f;
   }
 
   .section-title {
-    @apply flex items-center text-2xl sm:text-3xl font-bold text-white mb-6;
+    @include section-title;
 
     span {
       @include numbered-label;
-    }
-
-    &::after {
-      content: '';
-      @apply ml-6 h-px flex-1 max-w-xs bg-term-line;
     }
   }
 
@@ -307,8 +312,57 @@ $dim: #6b7d8f;
   }
 }
 
+// Heading blocks: lowercase; h2 gets the section-title look from index.html.
+.wp-block-heading {
+  text-transform: lowercase;
+}
+
+h2.wp-block-heading {
+  @include section-title;
+
+  &.has-text-align-center {
+    justify-content: center;
+  }
+
+  &.has-text-align-right {
+    justify-content: flex-end;
+  }
+}
+
 .wp-block-post-title {
   @apply text-3xl sm:text-4xl leading-tight;
+}
+
+// Buttons: default style = .btn-primary (colours in theme.json), Outline = .btn-ghost.
+.wp-block-button__link {
+  transition: all 200ms;
+
+  &:hover {
+    box-shadow: 0 0 20px rgba($green, 0.25);
+  }
+}
+
+.wp-block-button.is-style-outline > .wp-block-button__link {
+  @apply bg-transparent border-term-line text-term-text;
+  // core's outline style uses a 2px border with matching padding
+  border-width: 1px;
+  padding: 0.75rem 1.25rem;
+
+  &:hover,
+  &:focus {
+    @apply border-term-green text-term-green;
+    box-shadow: none;
+  }
+}
+
+// Editor-only preview of the "Command text" toggle; the front end gets the
+// real "./view-projects" text from functions.php.
+.has-command-text .wp-block-button__link {
+  text-transform: lowercase;
+
+  &::before {
+    content: './';
+  }
 }
 
 .site-footer {

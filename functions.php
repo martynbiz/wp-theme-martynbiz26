@@ -50,6 +50,64 @@ function martynbiz26_register_blocks() {
 add_action( 'init', 'martynbiz26_register_blocks' );
 
 /**
+ * Editor extensions (src/editor), e.g. the Button "Command text" toggle.
+ */
+function martynbiz26_enqueue_editor_assets() {
+	$asset_file = get_theme_file_path( 'build/editor/index.asset.php' );
+	if ( ! file_exists( $asset_file ) ) {
+		return;
+	}
+
+	$asset = require $asset_file;
+	wp_enqueue_script(
+		'martynbiz26-editor',
+		get_theme_file_uri( 'build/editor/index.js' ),
+		$asset['dependencies'],
+		$asset['version'],
+		true
+	);
+}
+add_action( 'enqueue_block_editor_assets', 'martynbiz26_enqueue_editor_assets' );
+
+/**
+ * Register the Button "commandText" attribute server-side so it survives REST/rendering.
+ */
+function martynbiz26_button_command_text_attribute( $args, $block_type ) {
+	if ( 'core/button' === $block_type ) {
+		$args['attributes']['commandText'] = array(
+			'type'    => 'boolean',
+			'default' => false,
+		);
+	}
+	return $args;
+}
+add_filter( 'register_block_type_args', 'martynbiz26_button_command_text_attribute', 10, 2 );
+
+/**
+ * Buttons with "Command text" on: "View projects" -> "./view-projects".
+ * Text that already starts with "./" is left alone.
+ */
+function martynbiz26_button_command_text( $block_content, $block ) {
+	if ( empty( $block['attrs']['commandText'] ) ) {
+		return $block_content;
+	}
+
+	return preg_replace_callback(
+		'#(<(a|button)\b[^>]*\bwp-block-button__link\b[^>]*>)(.*?)(</\2>)#s',
+		function ( $m ) {
+			$text = trim( html_entity_decode( wp_strip_all_tags( $m[3] ), ENT_QUOTES, 'UTF-8' ) );
+			if ( '' === $text || str_starts_with( $text, './' ) ) {
+				return $m[0];
+			}
+			return $m[1] . esc_html( './' . sanitize_title( $text ) ) . $m[4];
+		},
+		$block_content,
+		1
+	);
+}
+add_filter( 'render_block_core/button', 'martynbiz26_button_command_text', 10, 2 );
+
+/**
  * Show the header site title as a slug, e.g. "Martyn Bissett" -> "martyn-bissett".
  * The "~/" prefix and "_" cursor are added in CSS (.site-logo).
  */

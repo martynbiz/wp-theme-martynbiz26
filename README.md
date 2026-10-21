@@ -79,9 +79,26 @@ registers every block found there.
 | -------------------- | ------------------------------------- | --------------------------------------------------------- |
 | `martynbiz26/whoami` | `$ whoami` / name / typed ticker      | `prompt`, `name` (blank = site name), `phrases` (list); padding + margin (Styles tab) |
 | `martynbiz26/terminal-image` | `martyn.jpg` / `tinyfootball.jpg` frames | image (media library or URL), `label` (blank = file name), `alt`, `size` (small/medium), `square`, `grayscale`, `offset`; margin |
+| `martynbiz26/project-card` | `.project-card` boxes | `url`, `newTab`, `title` (shown lowercase-hyphenated: "Solid Server" → `solid-server`), `description`, `stars` (blank = hidden), `badge` (e.g. "new"), `tags` (list); margin. Lay out several with a **Grid** or **Columns** block |
 
 Ticker phrases are edited in the block sidebar (add, remove, reorder). `src/main.js`
 animates any element with a `data-typed` JSON list.
+
+## Headings
+
+Core **Heading** blocks are lowercase. H2 headings get the `index.html` section-title look
+(large, white, with a short rule after the text) via the `section-title` mixin in
+`src/style.scss`.
+
+## Buttons
+
+Use the core **Buttons** block; the theme styles it to match `index.html`:
+
+- **Default** style = solid green (`.btn-primary`), set in `theme.json` → `styles.elements.button`.
+- **Outline** style = outlined (`.btn-ghost`), styled in `src/style.scss`.
+- **Command text** toggle (sidebar → Terminal) shows "View projects" as `./view-projects`.
+  Leave it off for literal labels like `git remote -v → github.com/martynbiz`. The text is
+  converted on render in `functions.php`; the toggle itself is added by `src/editor/index.js`.
 
 ## Project structure
 
@@ -95,6 +112,7 @@ src/
   main.js             Typed text, section highlighting, contact form (all null-safe)
   style.scss          Tailwind directives + SCSS components
   blocks/             Theme blocks (one folder each, built by @wordpress/scripts)
+  editor/             Editor extensions for core blocks (Button "Command text" toggle)
 build/                Build output (git-ignored): Vite assets + build/blocks/
 index.html            Static design reference
 public/images/        Images used by the static reference
