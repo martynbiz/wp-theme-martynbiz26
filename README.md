@@ -78,7 +78,7 @@ registers every block found there.
 | Block                | From `index.html`                     | Fields                                                    |
 | -------------------- | ------------------------------------- | --------------------------------------------------------- |
 | `martynbiz26/whoami` | `$ whoami` / name / typed ticker      | `prompt`, `name` (blank = site name), `phrases` (list); padding + margin (Styles tab) |
-| `martynbiz26/terminal-image` | `martyn.jpg` / `tinyfootball.jpg` frames | image (media library or URL), `label` (blank = file name), `alt`, `size` (small/medium), `square`, `grayscale`, `offset`; margin |
+| `martynbiz26/terminal-image` | `martyn.jpg` / `tinyfootball.jpg` frames | image or WebM/MP4 video (media library or URL; video can autoplay muted/looping, paused for reduced motion, optional controls), `label` (blank = file name), `alt`, `size` (small/medium), `square`, `grayscale`, `offset`; margin |
 | `martynbiz26/project-card` | `.project-card` boxes | `url`, `newTab`, `title` (shown lowercase-hyphenated: "Solid Server" → `solid-server`), `description`, `stars` (blank = hidden), `badge` (e.g. "new"), `tags` (list); margin. Lay out several with a **Grid** or **Columns** block |
 | `martynbiz26/work-item` | `.work-item` entries under Work | `company` (amber), `subtitle` (shown as "— subtitle"), `period` (optional), description as inner Paragraph/List/Buttons blocks. Stack several to form the timeline |
 | `martynbiz26/terminal-window` | the contact form box | `prompt` (default `$ ./send-message.sh`, blank = hidden), any inner blocks; padding + margin |
@@ -121,6 +121,33 @@ fields, messages and recipient in **Contact → Contact Forms**. The form templa
 HTML around CF7 tags, styled by the theme (`.field`, `.btn` and the Contact Form 7 section in
 `src/style.scss`). Two quirks: write `--` as `&#45;&#45;` (WordPress turns `--` into a dash)
 and use a `<button>` for labels with `[ ]` in them (brackets break CF7's `[submit]` tag).
+
+### Setting it up on a live site
+
+wp-env does this automatically; on another WordPress site do it once by hand:
+
+1. **Plugins → Add New**: install and activate **Contact Form 7** and **Flamingo**.
+   (If the page shows `[contact-form-7 title="Contact (terminal)"]` as text, CF7 isn't active.)
+2. Create the form, either:
+   - with WP-CLI on the server, from a copy of this repo's `bin/cf7-form.php`:
+     `wp eval-file cf7-form.php`, or
+   - by hand: **Contact → Add New**, title exactly `Contact (terminal)`, and paste into the
+     **Form** tab:
+     ```
+     <label class="field"><span>&#45;&#45;name</span>[text* your-name autocomplete:name placeholder "Ada Lovelace"]</label>
+     <label class="field"><span>&#45;&#45;email</span>[email* your-email autocomplete:email placeholder "ada@example.com"]</label>
+     <label class="field"><span>&#45;&#45;message</span>[textarea* your-message x5 placeholder "Hello Martyn..."]</label>
+     <div class="flex items-center gap-4 flex-wrap"><button type="submit" class="wpcf7-form-control wpcf7-submit has-spinner btn btn-primary">[ enter ] send</button></div>
+     ```
+     **Mail** tab: To = your address, Subject `Website enquiry from [your-name]`,
+     Additional headers `Reply-To: [your-email]`, Message body
+     `[your-message]` + `— [your-name] <[your-email]>`.
+     **Messages** tab (optional): "ok: message sent — thanks!",
+     "error: please fill in all fields correctly", "error: couldn't send, please try again later".
+     **Additional Settings** tab: `flamingo_subject: "Website enquiry from [your-name]"`.
+     (If the page shows `[contact-form-7 404 "Not Found"]`, the title doesn't match.)
+3. Set up email delivery, e.g. the free **WP Mail SMTP** plugin, and send a test message.
+4. Optional: spam protection under **Contact → Integration** (Akismet or Cloudflare Turnstile).
 
 Locally there's no mail server: `dev/mu-plugins/dev-mail-log.php` (wp-env only, not in the
 theme zip) logs outgoing mail to `wp-content/debug.log`. On a real site, set up email

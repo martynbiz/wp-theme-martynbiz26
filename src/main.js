@@ -93,6 +93,16 @@ document.querySelectorAll('[data-typed], #typed').forEach((typed) => {
   if (phrases.length) startTicker(typed, phrases);
 });
 
+// ---------- autoplaying videos (terminal-image block) ----------
+// Visitors who prefer reduced motion get a paused video they can start themselves.
+if (reduceMotion) {
+  document.querySelectorAll('video[data-autoplay]').forEach((video) => {
+    video.removeAttribute('autoplay');
+    video.pause();
+    video.controls = true;
+  });
+}
+
 // ---------- contact form ----------
 const form = document.getElementById('contact-form');
 const status = document.getElementById('form-status');

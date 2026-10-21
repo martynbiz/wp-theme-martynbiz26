@@ -1,6 +1,6 @@
 <?php
 /**
- * Terminal image block markup. Classes mirror classes.js (used by the editor).
+ * Terminal image block markup (image or video). Classes mirror classes.js (used by the editor).
  *
  * @package martynbiz26
  *
@@ -29,27 +29,49 @@ if ( '' === $martynbiz26_label ) {
 	$martynbiz26_label = rawurldecode( wp_basename( strtok( $martynbiz26_url, '?' ) ) );
 }
 
-// Media library images get srcset/sizes; external URLs are output as-is.
-$martynbiz26_img = ! empty( $attributes['id'] )
-	? wp_get_attachment_image(
-		$attributes['id'],
-		'large',
-		false,
-		array(
-			'class' => $martynbiz26_img_class,
-			'alt'   => $martynbiz26_alt,
-			'sizes' => '(min-width: 640px) 320px, 256px',
-		)
-	)
-	: '';
+if ( 'video' === ( $attributes['mediaType'] ?? 'image' ) ) {
+	$martynbiz26_src = ! empty( $attributes['id'] ) ? wp_get_attachment_url( $attributes['id'] ) : '';
+	$martynbiz26_src = $martynbiz26_src ? $martynbiz26_src : $martynbiz26_url;
 
-if ( ! $martynbiz26_img ) {
+	// Autoplay = muted, looping and inline, like a GIF (src/main.js pauses it for reduced motion).
+	$martynbiz26_flags = array( 'playsinline', 'preload="metadata"' );
+	if ( ! empty( $attributes['autoplay'] ) ) {
+		array_push( $martynbiz26_flags, 'autoplay', 'muted', 'loop', 'data-autoplay' );
+	}
+	if ( ! empty( $attributes['controls'] ) ) {
+		$martynbiz26_flags[] = 'controls';
+	}
+
 	$martynbiz26_img = sprintf(
-		'<img src="%s" alt="%s" class="%s" loading="lazy" decoding="async" />',
-		esc_url( $martynbiz26_url ),
-		esc_attr( $martynbiz26_alt ),
-		esc_attr( $martynbiz26_img_class )
+		'<video src="%s" class="%s"%s %s></video>',
+		esc_url( $martynbiz26_src ),
+		esc_attr( $martynbiz26_img_class ),
+		'' !== $martynbiz26_alt ? ' aria-label="' . esc_attr( $martynbiz26_alt ) . '"' : '',
+		implode( ' ', $martynbiz26_flags )
 	);
+} else {
+	// Media library images get srcset/sizes; external URLs are output as-is.
+	$martynbiz26_img = ! empty( $attributes['id'] )
+		? wp_get_attachment_image(
+			$attributes['id'],
+			'large',
+			false,
+			array(
+				'class' => $martynbiz26_img_class,
+				'alt'   => $martynbiz26_alt,
+				'sizes' => '(min-width: 640px) 320px, 256px',
+			)
+		)
+		: '';
+
+	if ( ! $martynbiz26_img ) {
+		$martynbiz26_img = sprintf(
+			'<img src="%s" alt="%s" class="%s" loading="lazy" decoding="async" />',
+			esc_url( $martynbiz26_url ),
+			esc_attr( $martynbiz26_alt ),
+			esc_attr( $martynbiz26_img_class )
+		);
+	}
 }
 ?>
 <div <?php echo get_block_wrapper_attributes( array( 'class' => 'terminal-image relative mx-auto ' . $martynbiz26_size ) ); ?>>

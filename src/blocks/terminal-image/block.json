@@ -6,8 +6,8 @@
 	"title": "Terminal image",
 	"category": "theme",
 	"icon": "format-image",
-	"description": "An image in a terminal window frame with a filename bar and an offset green border.",
-	"keywords": [ "image", "photo", "terminal", "frame" ],
+	"description": "An image or video (WebM/MP4) in a terminal window frame with a filename bar and an offset green border.",
+	"keywords": [ "image", "photo", "video", "webm", "terminal", "frame" ],
 	"textdomain": "martynbiz26",
 	"attributes": {
 		"id": {
@@ -16,6 +16,19 @@
 		"url": {
 			"type": "string",
 			"default": ""
+		},
+		"mediaType": {
+			"type": "string",
+			"enum": [ "image", "video" ],
+			"default": "image"
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": true
+		},
+		"controls": {
+			"type": "boolean",
+			"default": false
 		},
 		"alt": {
 			"type": "string",
