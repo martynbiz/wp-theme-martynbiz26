@@ -88,7 +88,7 @@ animates any element with a `data-typed` JSON list.
 
 ## Headings
 
-Core **Heading** blocks are lowercase. H2 headings get the `index.html` section-title look
+Core **Heading** blocks are lowercase. H1 and H2 headings get the `index.html` section-title look
 (large, white, with a short rule after the text) via the `section-title` mixin in
 `src/style.scss`.
 

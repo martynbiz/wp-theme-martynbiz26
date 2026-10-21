@@ -313,11 +313,12 @@ $dim: #6b7d8f;
   }
 }
 
-// Heading blocks: lowercase; h2 gets the section-title look from index.html.
+// Heading blocks: lowercase; h1 and h2 get the section-title look from index.html.
 .wp-block-heading {
   text-transform: lowercase;
 }
 
+h1.wp-block-heading,
 h2.wp-block-heading {
   @include section-title;
 
@@ -328,6 +329,11 @@ h2.wp-block-heading {
   &.has-text-align-right {
     justify-content: flex-end;
   }
+}
+
+// h1: same line, one size up from h2.
+h1.wp-block-heading {
+  @apply text-3xl sm:text-4xl;
 }
 
 .wp-block-post-title {
