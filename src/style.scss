@@ -333,6 +333,12 @@ h2.wp-block-heading {
   }
 }
 
+// Heading "Number" field ("03" -> green "03."), set in the sidebar; see src/editor/index.js.
+.wp-block-heading[data-number]::before {
+  content: attr(data-number) '.';
+  @include numbered-label;
+}
+
 // h1: same line, one size up from h2.
 h1.wp-block-heading,
 h1.wp-block-post-title {

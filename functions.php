@@ -70,13 +70,19 @@ function martynbiz26_enqueue_editor_assets() {
 add_action( 'enqueue_block_editor_assets', 'martynbiz26_enqueue_editor_assets' );
 
 /**
- * Register the Button "commandText" attribute server-side so it survives REST/rendering.
+ * Register the Button "commandText" and Heading "number" attributes server-side so they survive REST/rendering.
  */
 function martynbiz26_button_command_text_attribute( $args, $block_type ) {
 	if ( 'core/button' === $block_type ) {
 		$args['attributes']['commandText'] = array(
 			'type'    => 'boolean',
 			'default' => false,
+		);
+	}
+	if ( 'core/heading' === $block_type ) {
+		$args['attributes']['number'] = array(
+			'type'    => 'string',
+			'default' => '',
 		);
 	}
 	return $args;
@@ -106,6 +112,23 @@ function martynbiz26_button_command_text( $block_content, $block ) {
 	);
 }
 add_filter( 'render_block_core/button', 'martynbiz26_button_command_text', 10, 2 );
+
+/**
+ * Headings with a Number ("03"): add data-number, which CSS draws as a green "03.".
+ */
+function martynbiz26_heading_number( $block_content, $block ) {
+	$number = trim( (string) ( $block['attrs']['number'] ?? '' ) );
+	if ( '' === $number ) {
+		return $block_content;
+	}
+
+	$tags = new WP_HTML_Tag_Processor( $block_content );
+	if ( $tags->next_tag() ) {
+		$tags->set_attribute( 'data-number', $number );
+	}
+	return $tags->get_updated_html();
+}
+add_filter( 'render_block_core/heading', 'martynbiz26_heading_number', 10, 2 );
 
 /**
  * Contact Form 7: output the form template as written (no auto <p>/<br>),

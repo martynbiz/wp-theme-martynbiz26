@@ -92,6 +92,11 @@ Core **Heading** blocks and H1 page/post titles are lowercase. H1 and H2 get the
 (large, white, with a short rule after the text) via the `section-title` mixin in
 `src/style.scss`.
 
+To add the green number from `index.html` (`03.projects`), select the heading and fill in
+**Number** in the sidebar (Terminal panel), e.g. `03`. It's stored as a block attribute,
+output as `data-number="03"` and drawn by CSS, so the editor shows it too. Leave it blank for
+no number.
+
 ## Buttons
 
 Use the core **Buttons** block; the theme styles it to match `index.html`:
