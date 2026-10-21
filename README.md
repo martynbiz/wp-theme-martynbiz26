@@ -97,6 +97,11 @@ To add the green number from `index.html` (`03.projects`), select the heading an
 output as `data-number="03"` and drawn by CSS, so the editor shows it too. Leave it blank for
 no number.
 
+Pages don't display their automatic title. Instead, start each page with an **H1 Heading**
+block (new pages get an empty one automatically) so it can have a Number like any heading.
+The page title you type in the editor still sets the browser tab, menu text and URL. Posts
+still show their title.
+
 ## Buttons
 
 Use the core **Buttons** block; the theme styles it to match `index.html`:

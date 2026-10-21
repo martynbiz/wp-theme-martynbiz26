@@ -114,6 +114,26 @@ function martynbiz26_button_command_text( $block_content, $block ) {
 add_filter( 'render_block_core/button', 'martynbiz26_button_command_text', 10, 2 );
 
 /**
+ * Pages don't display their title (templates/page.html); each page has its own H1
+ * Heading block instead, so it can take a Number. New pages start with one.
+ */
+function martynbiz26_page_starts_with_h1( $args, $post_type ) {
+	if ( 'page' === $post_type ) {
+		$args['template'] = array(
+			array(
+				'core/heading',
+				array(
+					'level'       => 1,
+					'placeholder' => __( 'Page heading', 'martynbiz26' ),
+				),
+			),
+		);
+	}
+	return $args;
+}
+add_filter( 'register_post_type_args', 'martynbiz26_page_starts_with_h1', 10, 2 );
+
+/**
  * Headings with a Number ("03"): add data-number, which CSS draws as a green "03.".
  */
 function martynbiz26_heading_number( $block_content, $block ) {
