@@ -29,7 +29,14 @@ if ( '' === $martynbiz26_label ) {
 	$martynbiz26_label = rawurldecode( wp_basename( strtok( $martynbiz26_url, '?' ) ) );
 }
 
-if ( 'video' === ( $attributes['mediaType'] ?? 'image' ) ) {
+// Video if saved as one, or if the attachment / file extension says so (covers blocks
+// saved with the wrong type).
+$martynbiz26_mime     = ! empty( $attributes['id'] ) ? (string) get_post_mime_type( $attributes['id'] ) : '';
+$martynbiz26_is_video = 'video' === ( $attributes['mediaType'] ?? 'image' )
+	|| str_starts_with( $martynbiz26_mime, 'video/' )
+	|| preg_match( '/\.(webm|mp4|m4v|mov|ogv)$/i', (string) strtok( $martynbiz26_url, '?' ) );
+
+if ( $martynbiz26_is_video ) {
 	$martynbiz26_src = ! empty( $attributes['id'] ) ? wp_get_attachment_url( $attributes['id'] ) : '';
 	$martynbiz26_src = $martynbiz26_src ? $martynbiz26_src : $martynbiz26_url;
 

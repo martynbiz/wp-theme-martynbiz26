@@ -15,7 +15,8 @@ const ALLOWED_TYPES = ['image', 'video'];
 
 export default function Edit({ attributes, setAttributes }) {
   const { id, url, mediaType, autoplay, controls, alt, label, size, square, grayscale, offset } = attributes;
-  const isVideo = mediaType === 'video';
+  // Also trust the file extension, so blocks saved with the wrong type still show as video.
+  const isVideo = mediaType === 'video' || mediaTypeOf(null, url) === 'video';
   // Call useBlockProps once on every render (hooks can't be conditional); only
   // the class changes between the placeholder and the framed image.
   const blockProps = useBlockProps({
