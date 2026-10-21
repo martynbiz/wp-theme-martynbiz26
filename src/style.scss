@@ -57,6 +57,10 @@ $dim: #6b7d8f;
 
   .comment {
     @apply text-term-dim italic;
+
+    &::before {
+      content: '// ';
+    }
   }
 
   .cursor {
