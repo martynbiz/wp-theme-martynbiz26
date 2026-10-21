@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "martynbiz26/terminal-image",
+	"version": "1.0.0",
+	"title": "Terminal image",
+	"category": "theme",
+	"icon": "format-image",
+	"description": "An image in a terminal window frame with a filename bar and an offset green border.",
+	"keywords": [ "image", "photo", "terminal", "frame" ],
+	"textdomain": "martynbiz26",
+	"attributes": {
+		"id": {
+			"type": "number"
+		},
+		"url": {
+			"type": "string",
+			"default": ""
+		},
+		"alt": {
+			"type": "string",
+			"default": ""
+		},
+		"label": {
+			"type": "string",
+			"default": ""
+		},
+		"size": {
+			"type": "string",
+			"enum": [ "small", "medium" ],
+			"default": "medium"
+		},
+		"square": {
+			"type": "boolean",
+			"default": false
+		},
+		"grayscale": {
+			"type": "boolean",
+			"default": false
+		},
+		"offset": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false,
+		"spacing": {
+			"margin": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}

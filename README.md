@@ -78,6 +78,7 @@ registers every block found there.
 | Block                | From `index.html`                     | Fields                                                    |
 | -------------------- | ------------------------------------- | --------------------------------------------------------- |
 | `martynbiz26/whoami` | `$ whoami` / name / typed ticker      | `prompt`, `name` (blank = site name), `phrases` (list); padding + margin (Styles tab) |
+| `martynbiz26/terminal-image` | `martyn.jpg` / `tinyfootball.jpg` frames | image (media library or URL), `label` (blank = file name), `alt`, `size` (small/medium), `square`, `grayscale`, `offset`; margin |
 
 Ticker phrases are edited in the block sidebar (add, remove, reorder). `src/main.js`
 animates any element with a `data-typed` JSON list.
