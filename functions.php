@@ -108,6 +108,12 @@ function martynbiz26_button_command_text( $block_content, $block ) {
 add_filter( 'render_block_core/button', 'martynbiz26_button_command_text', 10, 2 );
 
 /**
+ * Contact Form 7: output the form template as written (no auto <p>/<br>),
+ * so the terminal-style markup from the form editor is kept intact.
+ */
+add_filter( 'wpcf7_autop_or_not', '__return_false' );
+
+/**
  * Show the header site title as a slug, e.g. "Martyn Bissett" -> "martyn-bissett".
  * The "~/" prefix and "_" cursor are added in CSS (.site-logo).
  */

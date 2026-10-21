@@ -81,6 +81,7 @@ registers every block found there.
 | `martynbiz26/terminal-image` | `martyn.jpg` / `tinyfootball.jpg` frames | image (media library or URL), `label` (blank = file name), `alt`, `size` (small/medium), `square`, `grayscale`, `offset`; margin |
 | `martynbiz26/project-card` | `.project-card` boxes | `url`, `newTab`, `title` (shown lowercase-hyphenated: "Solid Server" → `solid-server`), `description`, `stars` (blank = hidden), `badge` (e.g. "new"), `tags` (list); margin. Lay out several with a **Grid** or **Columns** block |
 | `martynbiz26/work-item` | `.work-item` entries under Work | `company` (amber), `subtitle` (shown as "— subtitle"), `period` (optional), description as inner Paragraph/List/Buttons blocks. Stack several to form the timeline |
+| `martynbiz26/terminal-window` | the contact form box | `prompt` (default `$ ./send-message.sh`, blank = hidden), any inner blocks; padding + margin |
 
 Ticker phrases are edited in the block sidebar (add, remove, reorder). `src/main.js`
 animates any element with a `data-typed` JSON list.
@@ -101,6 +102,30 @@ Use the core **Buttons** block; the theme styles it to match `index.html`:
   Leave it off for literal labels like `git remote -v → github.com/martynbiz`. The text is
   converted on render in `functions.php`; the toggle itself is added by `src/editor/index.js`.
 
+## Contact form
+
+The terminal-style contact form uses two free plugins, both installed by `.wp-env.json`
+(install them yourself on another site):
+
+- **[Contact Form 7](https://wordpress.org/plugins/contact-form-7/)** sends the form with
+  JavaScript (no page reload) and shows `ok: …` / `error: …` and per-field errors inline.
+- **[Flamingo](https://wordpress.org/plugins/flamingo/)** keeps a copy of every message in
+  wp-admin → Flamingo → Inbound Messages.
+
+To add it to a page, insert the **Contact form (terminal)** pattern: a **Terminal window**
+block (the green `$ ./send-message.sh` prompt is editable) containing
+`[contact-form-7 title="Contact (terminal)"]`.
+
+`npm run env:start` creates that form (`bin/cf7-form.php`) if it doesn't exist. Change the
+fields, messages and recipient in **Contact → Contact Forms**. The form template is plain
+HTML around CF7 tags, styled by the theme (`.field`, `.btn` and the Contact Form 7 section in
+`src/style.scss`). Two quirks: write `--` as `&#45;&#45;` (WordPress turns `--` into a dash)
+and use a `<button>` for labels with `[ ]` in them (brackets break CF7's `[submit]` tag).
+
+Locally there's no mail server: `dev/mu-plugins/dev-mail-log.php` (wp-env only, not in the
+theme zip) logs outgoing mail to `wp-content/debug.log`. On a real site, set up email
+delivery (e.g. an SMTP plugin) and spam protection (CF7 supports Akismet and Turnstile).
+
 ## Project structure
 
 ```
@@ -119,6 +144,9 @@ index.html            Static design reference
 public/images/        Images used by the static reference
 .wp-env.json          Local WordPress environment
 bin/env-setup.sh      Runs after env:start: activates theme, sets title, static Home front page
+bin/cf7-form.php      Creates the "Contact (terminal)" Contact Form 7 form
+patterns/             Block patterns (Contact form (terminal))
+dev/mu-plugins/       wp-env only: dev-mail-log.php logs mail instead of sending
 ```
 
 ## Deploying to another WordPress site

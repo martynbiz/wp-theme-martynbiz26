@@ -223,7 +223,8 @@ $dim: #6b7d8f;
   .field {
     @apply block;
 
-    span {
+    // first span only: Contact Form 7 wraps inputs in extra spans
+    > span:first-child {
       @apply block text-sm text-term-cyan mb-2;
     }
 
@@ -372,6 +373,76 @@ h2.wp-block-heading {
 
 .work-item__body > * + * {
   @apply mt-3;
+}
+
+// Terminal window block: prompt line, then inner blocks.
+.terminal-window__prompt + .terminal-window__body {
+  @apply mt-5;
+}
+
+// ---------- Contact Form 7 ----------
+// Form template (with .field labels) is created by bin/cf7-form.php.
+.wpcf7-form {
+  > .field ~ * {
+    @apply mt-5;
+  }
+
+  .wpcf7-form-control-wrap {
+    @apply block;
+  }
+
+  .wpcf7-not-valid {
+    @apply border-term-pink;
+  }
+
+  .wpcf7-not-valid-tip {
+    @apply block mt-2 text-sm text-term-pink;
+  }
+
+  // CF7's own spinner: replaced by a blinking green cursor while sending.
+  .wpcf7-spinner {
+    @apply hidden;
+  }
+
+  &.submitting .wpcf7-submit {
+    @apply opacity-60 cursor-wait;
+  }
+
+  &.submitting .wpcf7-spinner {
+    @apply inline-block w-auto h-auto m-0 bg-transparent text-term-green opacity-100;
+    animation: blink 1s steps(1) infinite;
+
+    &::before {
+      content: '_';
+      position: static;
+      background: none;
+      animation: none;
+      border: 0;
+      width: auto;
+      height: auto;
+    }
+  }
+
+  .wpcf7-response-output {
+    @apply m-0 mt-5 p-0 text-sm;
+    // CF7 colours this border per state with higher-specificity selectors
+    border: 0 !important;
+  }
+
+  &.sent .wpcf7-response-output {
+    @apply text-term-green;
+  }
+
+  &.invalid,
+  &.unaccepted,
+  &.payment-required,
+  &.failed,
+  &.aborted,
+  &.spam {
+    .wpcf7-response-output {
+      @apply text-term-pink;
+    }
+  }
 }
 
 .site-footer {

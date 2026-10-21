@@ -13,3 +13,6 @@ if [ -z "$home_id" ]; then
 fi
 wp option update show_on_front page
 wp option update page_on_front "$home_id"
+
+# Terminal-styled Contact Form 7 form (used by the "Contact form (terminal)" pattern).
+wp eval-file wp-content/themes/wp-theme-martynbiz26/bin/cf7-form.php

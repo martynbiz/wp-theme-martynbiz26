@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "martynbiz26/terminal-window",
+  "version": "1.0.0",
+  "title": "Terminal window",
+  "category": "theme",
+  "icon": "editor-code",
+  "description": "A terminal-style box with an optional green prompt line. Put any blocks inside, e.g. a contact form.",
+  "keywords": [
+    "terminal",
+    "box",
+    "panel",
+    "form",
+    "container"
+  ],
+  "textdomain": "martynbiz26",
+  "attributes": {
+    "prompt": {
+      "type": "string",
+      "default": "$ ./send-message.sh"
+    }
+  },
+  "supports": {
+    "html": false,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

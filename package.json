@@ -15,7 +15,7 @@
     "env:stop": "wp-env stop",
     "env:destroy": "wp-env destroy",
     "env:cli": "wp-env run cli",
-    "zip": "npm run build && rm -rf .zip-tmp martynbiz26.zip && mkdir -p .zip-tmp/martynbiz26 && cp -r style.css functions.php theme.json templates parts build .zip-tmp/martynbiz26/ && cd .zip-tmp && zip -rq ../martynbiz26.zip martynbiz26 && cd .. && rm -rf .zip-tmp"
+    "zip": "npm run build && rm -rf .zip-tmp martynbiz26.zip && mkdir -p .zip-tmp/martynbiz26 && cp -r style.css functions.php theme.json templates parts patterns build .zip-tmp/martynbiz26/ && cd .zip-tmp && zip -rq ../martynbiz26.zip martynbiz26 && cd .. && rm -rf .zip-tmp"
   },
   "devDependencies": {
     "@wordpress/env": "12.0.0",

@@ -6,11 +6,20 @@
 	"themes": [
 		"."
 	],
+	"plugins": [
+		"https://downloads.wordpress.org/plugin/contact-form-7.latest-stable.zip",
+		"https://downloads.wordpress.org/plugin/flamingo.latest-stable.zip"
+	],
 	"config": {
 		"WP_DEBUG": true,
-		"SCRIPT_DEBUG": true
+		"SCRIPT_DEBUG": true,
+		"WP_DEBUG_LOG": true,
+		"WP_DEVELOPMENT_MODE": "theme"
 	},
 	"lifecycleScripts": {
 		"afterStart": "wp-env run cli bash wp-content/themes/wp-theme-martynbiz26/bin/env-setup.sh"
+	},
+	"mappings": {
+		"wp-content/mu-plugins": "./dev/mu-plugins"
 	}
 }
