@@ -317,14 +317,15 @@ $dim: #6b7d8f;
   }
 }
 
-// Heading blocks and page/post titles (h1): lowercase with the section-title look from index.html.
+// Heading blocks and post titles (h1): lowercase with the section-title look from index.html.
+// .editor-post-title is the editor's title input, which keeps its normal look.
 .wp-block-heading,
-h1.wp-block-post-title {
+h1.wp-block-post-title:not(.editor-post-title) {
   text-transform: lowercase;
 }
 
 h1.wp-block-heading,
-h1.wp-block-post-title,
+h1.wp-block-post-title:not(.editor-post-title),
 h2.wp-block-heading {
   @include section-title;
 
@@ -345,7 +346,7 @@ h2.wp-block-heading {
 
 // h1: same line, one size up from h2.
 h1.wp-block-heading,
-h1.wp-block-post-title {
+h1.wp-block-post-title:not(.editor-post-title) {
   @apply text-3xl sm:text-4xl;
 }
 
