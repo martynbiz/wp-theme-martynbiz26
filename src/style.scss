@@ -365,6 +365,15 @@ h2.wp-block-heading {
   }
 }
 
+// Work item block: optional period line and spacing between description blocks.
+.work-item__period {
+  @apply -mt-1 mb-2 text-sm text-term-dim;
+}
+
+.work-item__body > * + * {
+  @apply mt-3;
+}
+
 .site-footer {
   @apply border-t border-term-line py-8 text-sm text-term-dim;
 }
